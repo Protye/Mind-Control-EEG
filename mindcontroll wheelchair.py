@@ -17,14 +17,14 @@ from scipy.signal import welch
 import keyboard
 
 # === Config ===
-arduino_port = "COM5"
+arduino_port = "COM13"
 baud = 9600
 sampling_rate = 256  # Hz, matches Arduino
 epoch_duration = 2   # seconds
 epoch_length = sampling_rate * epoch_duration
 max_plot_points = 100
 file_name = "EEG_Log.txt"
-threshold = None
+threshold = 150
 pressing = False
 
 # === Shared Data ===
@@ -50,14 +50,16 @@ def bandpower(data, sf, band, window_sec=None):
 def walker():
     global pressing
     if not pressing:
-        keyboard.press("w")
+        keyboard.press("space")
         pressing = True
+        print("🚶 Walking Activated")
 
 def walker_stop():
     global pressing
     if pressing:
-        keyboard.release("w")
+        keyboard.release("space")
         pressing = False
+        print("🛑 Walking Stopped")
 
 # === Serial Reading Thread ===
 def read_serial():
@@ -81,7 +83,7 @@ fig, (ax1, ax2) = plt.subplots(2, 1)
 def animate(i):
     with lock:
         if len(raw_data) >= epoch_length:
-            epoch = raw_data[-epoch_length:]
+            epoch = np.array(raw_data[-epoch_length:])
             alpha = bandpower(epoch, sampling_rate, [8, 12])
             beta = bandpower(epoch, sampling_rate, [13, 30])
 
