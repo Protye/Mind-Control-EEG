@@ -17,4 +17,4 @@
 - [BioAmp EXG Pill](https://www.crowdsupply.com/upside-down-labs/bioamp-exg-pill) 
 - Libraries: Serial, threading, matplotlib, scipy, time
 
-Credits: ArduinoEEGFilter code is by BioAMP Pill team 
+Credits: This project uses [EEGFilter](https://github.com/upsidedownlabs/BioAmp-EXG-Pill/blob/86bb1f45575054b4b9af78517c24ad682c3a65b6/software/EEGFilter/EEGFilter.ino) by Upside Down Labs
