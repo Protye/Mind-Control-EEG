@@ -1,5 +1,20 @@
-you can change output of threshold activation to whatever you want. right now it's set as pressing 'space' button. 
+# 🧠 Mind Control EEG
 
-ArduinoEEGFilter code is by BioAMP Pill team. 
+**Mind Control EEG** is a real-time, brain-computer interface that reads EEG signals via Arduino and processes them in Python to trigger customizable outputs — such as virtual movement in games. This toolkit is flexible and modular, allowing developers to map mental state changes (e.g. alpha/beta activity) to any action they define.
 
-'fake signal' is useless code, but I don't know why it won't delete
+---
+
+## 📌 Features
+
+- 🧠 Real-time EEG signal acquisition (via Arduino)
+- 📊 Live bandpower computation using Welch's method
+- ⚡ Threshold-based trigger system
+- 🎮 Simulated keyboard actions (e.g. pressing `space`) — easily replaceable with any custom output
+- 📈 Real-time matplotlib visualizations
+- 📁 EEG data logging to text file
+
+# Requirements
+- [BioAmp EXG Pill](https://www.crowdsupply.com/upside-down-labs/bioamp-exg-pill) 
+- Libraries: Serial, threading, matplotlib, scipy, time
+
+Credits: ArduinoEEGFilter code is by BioAMP Pill team 
