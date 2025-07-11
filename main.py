@@ -1,12 +1,3 @@
-'''
-Collect electrode readings by opening file and writing to it.
-Compute Alpha/Beta Power bands...
-Graphing...
-When Alpha/Beta power bands exceed threshold, then activate walking().
-'''
-
-
-## Part 1: EEG Stuff
 import serial
 import time
 import threading
@@ -24,8 +15,9 @@ epoch_duration = 2   # seconds
 epoch_length = sampling_rate * epoch_duration
 max_plot_points = 100
 file_name = "EEG_Log.txt"
-threshold = 150
 pressing = False
+threshold = 150 # adjust power band threshold
+key = "w" #Customize keyboard press
 
 # === Shared Data ===
 raw_data = []
@@ -47,19 +39,20 @@ def bandpower(data, sf, band, window_sec=None):
     idx_band = np.logical_and(freqs >= low, freqs <= high)
     return np.trapezoid(psd[idx_band], freqs[idx_band])
 
+# === Trigger Action ===
 def walker():
     global pressing
     if not pressing:
-        keyboard.press("space")
-        pressing = True
-        print("🚶 Walking Activated")
+        keyboard.press(key)
+        print("🚶 Activated")
+        pressing = True # resets for next animate
 
 def walker_stop():
     global pressing
     if pressing:
-        keyboard.release("space")
+        keyboard.release(key)
+        print("🛑 Stopped")
         pressing = False
-        print("🛑 Walking Stopped")
 
 # === Serial Reading Thread ===
 def read_serial():
@@ -77,6 +70,7 @@ def read_serial():
                 file.write(f"{value}\n")
             except:
                 continue
+
 # === Plotting ===
 fig, (ax1, ax2) = plt.subplots(2, 1)
 
